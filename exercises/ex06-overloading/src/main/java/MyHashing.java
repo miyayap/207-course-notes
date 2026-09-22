@@ -12,6 +12,7 @@
 public class MyHashing {
 
   /** The seed carried by this object; updated by the instance hash methods. */
+  //NOT STATIC VARIABLE
   private int seed;
 
   /** A shared constant used by the char-based hash. */
@@ -20,6 +21,7 @@ public class MyHashing {
   /** Creates a MyHashing whose seed starts at 0. */
   public MyHashing() {
     // TODO: this constructor takes no arguments; leave the seed at its default.
+    // default int is 0
   }
 
   /**
@@ -29,6 +31,7 @@ public class MyHashing {
    */
   public MyHashing(int seed) {
     // TODO: store the parameter in this object's seed field.
+    this.seed = seed;
   }
 
   /**
@@ -39,7 +42,10 @@ public class MyHashing {
    */
   public int hash(int value) {
     // TODO
-    return 0;
+    int previous = this.seed;
+    this.seed = value;
+    return previous;
+
   }
 
   /**
@@ -52,19 +58,25 @@ public class MyHashing {
    */
   public int hash(char value) {
     // TODO
-    return 0;
+    int prev = this.seed;
+    this.seed = value;
+    return (prev + value) % MODULO;
   }
 
   /**
    * Returns the sum of the numeric codes of the characters in {@code value}.
    * This is a static (class) method: it belongs to the class, not to any one
-   * object, so it has no seed to read or change.
+   * object, so it has no seed to read or change. CAN'T USE 'THIS' OR 'THIS.SEED'
    *
    * @param value the string to hash
    * @return the sum of the characters' numeric codes
    */
   public static int hash(String value) {
     // TODO: String.toCharArray() may help.
-    return 0;
+    int sum = 0;
+    for (char c : value.toCharArray()) {
+      sum += c;   // char widens to int, same as above
+    }
+    return sum;
   }
 }
